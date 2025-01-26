@@ -11,7 +11,7 @@ def token_ids_to_text(token_ids, tokenizer):
     return tokenizer.decode(flat.tolist())
 
 
-def generate(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=None, eos_id=None):
+def generate(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=None, eos_id=None, tokenizer=None):
 
     # For-loop is the same as before: Get logits, and only focus on last time step
     for _ in range(max_new_tokens):
@@ -46,5 +46,7 @@ def generate(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=No
 
         # Same as before: append sampled index to the running sequence
         idx = torch.cat((idx, idx_next), dim=1)  # (batch_size, num_tokens+1)
+        if tokenizer:
+            print(token_ids_to_text(idx, tokenizer))
 
     return idx
