@@ -1,4 +1,4 @@
-/gpt-env
+.venv
 .env
 .model
 .psh
